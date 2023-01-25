@@ -1,70 +1,74 @@
 {% extends "layout.html" %}
 {% block main %}
-	{% for category, message in get_flashed_messages(with_categories=true) %}
-	<div class="alert alert-success alert-dismissible fade show" role="alert">
-		{{ message }}
-		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-	</div>
-	{% endfor %}
+	{% if current_user.is_admin %}
+		{% for category, message in get_flashed_messages(with_categories=true) %}
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			{{ message }}
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		{% endfor %}
 
-	<div class="mb-4">
-		{% if username %}
-			<h1>User added!</h1>
-			<a href="{{ url_for('user_admin') }}">Add/update another user</a>
-		{% else %}
-			<h1>Add User</h1>
-			<div class="shadow p-3 mb-5 bg-body-tertiary rounded">
-				<form method="post">
-					{{ form.hidden_tag() }}
+		<div class="mb-4">
+			{% if username %}
+				<h1>User added!</h1>
+				<a href="{{ url_for('user_admin') }}">Add/update another user</a>
+			{% else %}
+				<h1>Add User</h1>
+				<div class="shadow p-3 mb-5 bg-body-tertiary rounded">
+					<form method="post">
+						{{ form.hidden_tag() }}
 
-					<div class="mb-4">
-						{{ form.username.label(class="form-label") }}
-						{{ form.username(class="form-control") }}
-					</div>
+						<div class="mb-4">
+							{{ form.username.label(class="form-label") }}
+							{{ form.username(class="form-control") }}
+						</div>
 
-					<div class="mb-4">
-						{{ form.password_hash.label(class="form-label") }}
-						{{ form.password_hash(class="form-control") }}
-					</div>
+						<div class="mb-4">
+							{{ form.password_hash.label(class="form-label") }}
+							{{ form.password_hash(class="form-control") }}
+						</div>
 
-					<div class="mb-4">
-						{{ form.password_hash2.label(class="form-label") }}
-						{{ form.password_hash2(class="form-control") }}
-					</div>
+						<div class="mb-4">
+							{{ form.password_hash2.label(class="form-label") }}
+							{{ form.password_hash2(class="form-control") }}
+						</div>
 
-					<div class="mb-4 form-check">
-						{{ form.is_admin(class="form-check-input", value='n') }}
-						{{ form.is_admin.label(class="form-label") }}
-					</div>
+						<div class="mb-4 form-check">
+							{{ form.is_admin(class="form-check-input", value='n') }}
+							{{ form.is_admin.label(class="form-label") }}
+						</div>
 
-					{{ form.submit(class="btn btn-secondary") }}
-				</form>
-			</div>
-		{% endif %}
-	</div>
+						{{ form.submit(class="btn btn-secondary") }}
+					</form>
+				</div>
+			{% endif %}
+		</div>
 
-	<div>
-		<h2>User List:</h2>
+		<div>
+			<h2>User List:</h2>
 
-		<table class="table table-hover table-bordered table-striped">
-			{% for a_user in all_users %}
-				<tr>
-					<td>
-						<strong>ID:</strong> {{ a_user.id }}, 
-						<strong>username:</strong> <a href="{{ url_for('update_user', id=a_user.id) }}">{{ a_user.username }}</a>,
-						<strong>admin:</strong>
-							{% if a_user.is_admin %}
-								Yes
-							{% else %}
-								No
-							{% endif %}
-					</td>
+			<table class="table table-hover table-bordered table-striped">
+				{% for a_user in all_users %}
+					<tr>
+						<td>
+							<strong>ID:</strong> {{ a_user.id }}, 
+							<strong>username:</strong> <a href="{{ url_for('update_user', id=a_user.id) }}">{{ a_user.username }}</a>,
+							<strong>admin:</strong>
+								{% if a_user.is_admin %}
+									Yes
+								{% else %}
+									No
+								{% endif %}
+						</td>
 
-					<td class="text-end">
-						<strong><a href="{{ url_for('delete_user', id=a_user.id) }}" class="btn btn-danger btn-sm">&times;</a></strong>
-					</td>
-				</tr>
-			{% endfor %}
-		</table>
-	</div>
+						<td class="text-end">
+							<strong><a href="{{ url_for('delete_user', id=a_user.id) }}" class="btn btn-danger btn-sm">&times;</a></strong>
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	{% else %}
+		<h2>You don't have permission to view this page</h2>
+	{% endif %}
 {% endblock %}
