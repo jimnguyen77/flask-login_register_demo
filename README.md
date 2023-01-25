@@ -19,9 +19,11 @@
 
 ### Initial users and passwords are: ###
 
-1. john / password (admin)
+1. john / password (admin*)
 2. mary / password
 3. bob / password
-4. mark / password (admin)
+4. mark / password (admin*)
 5. jim / password
 6. jones / password
+
+* Admins have special access to the "User Admin" page (after logging in) where you can add, update, and delete users.
