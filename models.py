@@ -9,7 +9,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-# Model class
+# Users Model class
 class Users(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
 	created = db.Column(db.DateTime, default=datetime.utcnow)

@@ -14,7 +14,7 @@ login_manager.login_view = 'login'
 def load_user(user_id):
 	return Users.query.get(int(user_id))
 
-# Form class
+# User class
 class UserForm(FlaskForm):
 	username = StringField("Username", validators=[DataRequired()])
 	password_hash = PasswordField("Password", validators=[DataRequired(), EqualTo('password_hash2', message='Passwords Must Match!')])
@@ -22,7 +22,7 @@ class UserForm(FlaskForm):
 	is_admin = BooleanField("Is Admin")
 	submit = SubmitField("Submit")
 
-# Form class
+# Password class
 class PasswordForm(FlaskForm):
 	username = StringField("What's your username", validators=[DataRequired()])
 	password_hash = PasswordField("What's your password", validators=[DataRequired()])

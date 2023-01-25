@@ -20,12 +20,12 @@ def login():
 			# Check the hash
 			if check_password_hash(user.password_hash, form.password.data):
 				login_user(user)
-				flash('Login successful!')
+				flash('Login successful!', 'success')
 				return redirect(url_for('dashboard'))
 			else:
-				flash('Username or password was incorrect, try again!')
+				flash('Username or password was incorrect, try again!', 'warning')
 		else:
-			flash('Username or password was incorrect, try again!')
+			flash('Username or password was incorrect, try again!', 'warning')
 
 	return render_template('login.html', 
 		form=form
@@ -36,7 +36,7 @@ def login():
 @login_required
 def logout():
 	logout_user()
-	flash("You've been logged out")
+	flash("You've been logged out", 'warning')
 	return redirect(url_for('login'))
 
 # Register
@@ -60,10 +60,10 @@ def register():
 
 			form.username.data = ''
 			form.password_hash.data = ''
-			flash('Registered Successfully!')
+			flash('Registered Successfully!', 'success')
 			return redirect(url_for('login'))
 		else:
-			flash('Someone already registered with that username, try another')
+			flash('Someone already registered with that username, try another', 'warning')
 
 	return render_template('register.html', form=form)
 
@@ -96,9 +96,9 @@ def user_admin():
 			db.session.commit()
 			username = form.username.data
 
-			flash('User Added Successfully!')
+			flash('User Added Successfully!', 'success')
 		else:
-			flash('User already exists!')
+			flash('User already exists!', 'warning')
 
 		form.username.data = ''
 		form.password_hash.data = ''
@@ -126,9 +126,9 @@ def update_user(id):
 		user_to_update.is_admin = request.form['is_admin']
 		try:
 			db.session.commit()
-			flash('User Updated Successfully!')
+			flash('User Updated Successfully!', 'success')
 		except:
-			flash('Error! Looks like there was a problem, try again.')
+			flash('Error! Looks like there was a problem, try again.', 'danger')
 
 		return redirect(url_for('user_admin'))
 	
@@ -148,9 +148,9 @@ def delete_user(id):
 	try:
 		db.session.delete(user_to_delete)
 		db.session.commit()
-		flash("User Deleted Successfully!")		
+		flash("User Deleted Successfully!", 'success')		
 	except:
-		flash("Whoops! There was a problem deleting user, try again")
+		flash("Whoops! There was a problem deleting user, try again", 'danger')
 
 	return redirect(url_for('user_admin'))
 
