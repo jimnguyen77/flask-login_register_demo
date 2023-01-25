@@ -3,10 +3,10 @@
 1. Within the project directory, type: `. venv/bin/activate`
 2. To run the dev server: `flask run` or `flash --debug run --host=0.0.0.0`
 3. If you need to install some dependancies:
-	a. `pip install flask-wtf`
-	b. `pip install flask-sqlalchemy`
-	c. `pip install Flask-Migrate`
-	d. `pip install flask_login`
+	- `pip install flask-wtf`
+	- `pip install flask-sqlalchemy`
+	- `pip install Flask-Migrate`
+	- `pip install flask_login`
 
 ---
 
@@ -26,4 +26,4 @@
 5. jim / password
 6. jones / password
 
-* Admins have special access to the "User Admin" page (after logging in) where you can add, update, and delete users.
+\* Admins have special access to the "User Admin" page (after logging in) where you can add, update, and delete users.
